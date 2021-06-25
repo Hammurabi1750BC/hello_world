@@ -3,6 +3,22 @@ class Solution:
         min_dels = 0
         s = Counter(s)
         tallies = set()
+        
+        for char, tally in s.items():
+            while tally > 0 and tally in tallies:
+                min_dels += 1
+                tally -= 1
+            if tally > 0:
+                tallies.add(tally)
+                    
+        return min_dels
+    
+    
+    
+    def minDeletions_first_attempt(self, s: str) -> int:
+        min_dels = 0
+        s = Counter(s)
+        tallies = set()
         d_same_freq = defaultdict(lambda: 1)  # if you have a match, start at 2
         
         for char in s.keys():
