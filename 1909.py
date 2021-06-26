@@ -1,5 +1,30 @@
 # 1909_Remove_One_Element_to_Make_the_Array_Strictly_Increasing
 
+# O(n)
+def canBeIncreasing(self, nums: List[int]) -> bool:
+    last_nix = -1
+    count_ni = 0
+
+    for i in range(len(nums)-1):
+        if nums[i] >= nums[i+1]:
+            last_nix = i
+            count_ni += 1
+            if count_ni > 1:
+                return False
+
+    if count_ni == 0:
+        return True
+
+    if count_ni == 1:
+        if last_nix == 0 or last_nix == len(nums)-2:
+            return True
+        if nums[last_nix-1] < nums[last_nix+1] or (last_nix+2 < len(nums) and nums[last_nix] < nums[last_nix+2]):
+            return True
+
+    return False
+
+
+# version 2
 def canBeIncreasing(self, nums: List[int]) -> bool:
     for i in range(len(nums)):
         nums2check = nums[:i] + nums[i+1:]
@@ -8,7 +33,7 @@ def canBeIncreasing(self, nums: List[int]) -> bool:
 
     return False
 
-# attempt 1
+# version 1
 def canBeIncreasing(self, nums: List[int]) -> bool:
     def check4increasing(nums2check):
         for i in range(1, len(nums2check)):
