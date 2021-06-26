@@ -1,0 +1,25 @@
+def removeOccurrences(self, s: str, part: str) -> str:        
+        while part in s:
+            idx = s.index(part)
+            s = s[:idx] + s[idx+len(part):]
+        return s
+
+
+# attempt 1 - skip iterating to the left to the extent possible
+def removeOccurrences(self, s: str, part: str) -> str:
+    left_non_part = 0
+    found_part = True
+    while found_part:
+        found_part = False
+        found_part0 = False
+        for i in range(left_non_part, len(s)):
+            if not found_part0 and s[i] != part[0]:
+                left_non_part = i
+            if s[i] == part[0]:
+                found_part0 = True
+                if s[i:i+len(part)] == part:
+                    found_part = True
+                    s = s[:i] + s[i+len(part):]
+                    break
+
+    return s
